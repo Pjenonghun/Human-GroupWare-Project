@@ -25,16 +25,7 @@ function openUserBox() {
       $('#userBox').modal('show');
       
 }
-/*function getUserName(){
-	$.ajax({url:"/userName",
-			type:"post",
-			dataType:"text",
-			data:{user:$("#userNo").val()},
-			success:(data)=>{	
-					$("#mg_Writer").val(data)
-			}	
-	})
-}*/
+
 function sendMessage(){
 	$.ajax({url:"/sendMg",
 			type:"post",
