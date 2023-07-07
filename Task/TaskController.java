@@ -104,30 +104,24 @@ public class TaskController {
 	@ResponseBody
 	public String getMyWorkData(HttpServletRequest req) {
 		
-		ArrayList<getWorkDataDTO> dto
-			= tdao.getWorkData(Integer.parseInt(req.getParameter("workNo")));
-	
+		ArrayList<getWorkDataDTO> dto = tdao.getWorkData(Integer.parseInt(req.getParameter("workNo")));	
 		JSONArray ja = new JSONArray();
+			
 			JSONObject jo = new JSONObject();
 			
 			jo.put("title", dto.get(0).getDwork_name());
 			jo.put("writer", dto.get(0).getDwork_writer());
-			
-			getUserDepartDTO to = tdao.getUserDepart(req.getParameter("userName"));
-			String departName = to.getDep_name();
-			
-			jo.put("departName", departName);
 			jo.put("content", dto.get(0).getDwork_content());
 			jo.put("notes", dto.get(0).getDwork_notes());
 			jo.put("created", dto.get(0).getDwork_created());
+			getUserDepartDTO to = tdao.getUserDepart(req.getParameter("userName"));
+			String departName = to.getDep_name();
+			jo.put("departName", departName);
 			
 			ja.put(jo);
 			
 		return ja.toString();
 	}
-	////////////////////////////////�μ�����///////////////////////////////////////
-	
-	/////////////////////////////////���� ����///////////////////////////////////////
 	@PostMapping("/insertReport")
 	@ResponseBody
 	public void insertWorkLog(HttpServletRequest req){
@@ -164,20 +158,17 @@ public class TaskController {
 	@PostMapping("/getWorkList")
 	@ResponseBody
 	public String getWorkList(HttpServletRequest req) {
-		ArrayList<getWorkDataDTO> dto = 
-			tdao.getWorkList(Integer.parseInt(req.getParameter("userID")));
+		
+		ArrayList<getWorkDataDTO> dto = tdao.getWorkList(Integer.parseInt(req.getParameter("userID")));
 		JSONArray ja = new JSONArray();
 		for(int i =0; i<dto.size(); i++) {
+			
 			JSONObject jo = new JSONObject();
 			
 			jo.put("rep_no", dto.get(i).getReport_no());
-			
 			jo.put("WorkNum", dto.get(i).getDwork_id());
-
 			jo.put("title",dto.get(i).getDwork_name());
-			
 			jo.put("content",dto.get(i).getDwork_content());
-			
 			jo.put("created",dto.get(i).getDwork_created());
 			
 			ja.put(jo);
@@ -187,75 +178,53 @@ public class TaskController {
 	@PostMapping("/updateWorkLog")
 	@ResponseBody
 	public void updateWorkLog(HttpServletRequest req) {
-		String workNo = req.getParameter("workNo");
 		
+		String workNo = req.getParameter("workNo");
 		String [] no  = workNo.split(",");
 		
-		for(int i = 0; i<no.length; i++) {
-			
+		for(int i = 0; i<no.length; i++) {	
 			int work_id=Integer.parseInt(no[i]);
-			
 			tdao.updateWorkLog(work_id);
 		}
  	}
-	/////////////////////////////�μ���������/////////////////////////////////
 	@PostMapping("/getDworkLog") 
 	@ResponseBody 
 	public String getDworkLog(HttpServletRequest req) { 
 		 
-		ArrayList<getWorkDataDTO> dto = 
-			tdao.getDworkLog(Integer.parseInt(req.getParameter("dep_id")));
-		  
-		  JSONArray ja = new JSONArray();
-		  
+		ArrayList<getWorkDataDTO> dto = tdao.getDworkLog(Integer.parseInt(req.getParameter("dep_id")));
+		JSONArray ja = new JSONArray();
 	  		for(int i =0; i<dto.size(); i++) { 
 	  		
 	  			JSONObject jo = new JSONObject();
 	  			
 	  			jo.put("rep_no", dto.get(i).getReport_no());
-	  		
-	  			jo.put("WorkNo", dto.get(i).getDwork_id());
-	  			
-	  			jo.put("title",dto.get(i).getDwork_name());
-	  			
-	  			UserDTO name  = ndao.select_User(dto.get(i).getDwork_writer());
-	  			
+	  			jo.put("WorkNo", dto.get(i).getDwork_id());	  			
+	  			jo.put("title",dto.get(i).getDwork_name());	  			
 				jo.put("writer", name.getEmp_name());
-				
 				jo.put("content",dto.get(i).getDwork_content());
-				
 				jo.put("created",dto.get(i).getDwork_created());
+				UserDTO name  = ndao.select_User(dto.get(i).getDwork_writer());
 				
 				ja.put(jo);
 	  		}
 	  		return ja.toString();
-	  }
+	}
 	@GetMapping("/writeReport")
 	public String wrirteReport () {
 		return "task/task_write_report";
 	}
-	////////////////////////////////////////////��������//////////////////////////////////
-	
-	
 	@PostMapping("/insertTask_report")
 	@ResponseBody
 	public void insertTask_report(HttpServletRequest req) {
 		
-		int uesrID = Integer.parseInt(req.getParameter("userID"));
-		
-		int taskNo = Integer.parseInt(req.getParameter("task"));
-		
-		int depart = Integer.parseInt(req.getParameter("depart"));
-		
+		int uesrID = Integer.parseInt(req.getParameter("userID"));		
+		int taskNo = Integer.parseInt(req.getParameter("task"));		
+		int depart = Integer.parseInt(req.getParameter("depart"));		
 		int receiver = Integer.parseInt(req.getParameter("receiver"));
-		
-		
 		String title = req.getParameter("title");
-		
 		String content = req.getParameter("content");
-		
 		String created = req.getParameter("created");
-		
+
 		tdao.insertTask_report(taskNo,depart,uesrID,title,content,created,receiver);
 	}
 	@PostMapping("/selectTask")
@@ -295,33 +264,24 @@ public class TaskController {
 			jo.put("emp_name", dto.get(i).getEmp_name());
 			
 			ja.put(jo);
-			
-			
 		}
 		return ja.toString();
 	}
 	@PostMapping("insertTask")
 	@ResponseBody
 	public void insertTask(HttpServletRequest req) {
+		
 		String title=req.getParameter("title");
-		System.out.println(title);
 		int depart = Integer.parseInt(req.getParameter("depart"));
-		System.out.println(depart);
 		int drafter = Integer.parseInt(req.getParameter("drafter"));
-		System.out.println(drafter);
 		int performer = Integer.parseInt(req.getParameter("performer"));
-		System.out.println(performer);
 		String start =req.getParameter("start");
-		System.out.println(start);
 		String limit =req.getParameter("limit");
-		System.out.println(limit);
 		String content = req.getParameter("content");
-		System.out.println(content);
 		
 		tdao.insertTask(title,depart,drafter,performer,start,limit,content);
 		
 	}
-	///////////////������� ���� �Ǵ� ������ ����/////////////////
 	@PostMapping("/selectReport")
 	@ResponseBody
 	public String selectReport(HttpServletRequest req) {
@@ -334,10 +294,7 @@ public class TaskController {
 		}else {
 			dto=tdao.selectReport(userID);
 		}
-		
-		
 		JSONArray ja = new JSONArray();
-		
 		for(int i=0; i<dto.size(); i++) {
 			
 			JSONObject jo = new JSONObject();
@@ -411,7 +368,6 @@ public class TaskController {
 			
 			ja.put(jo);
 		}
-		
 		return ja.toString();
 	}
 	@GetMapping("/detail")
@@ -420,12 +376,10 @@ public class TaskController {
 	}
 	@GetMapping("/detail/{type}/{id}/{userID}")
 	public String dtail2(@PathVariable("type")String type,
-						 @PathVariable("id")int id,
-						 @PathVariable("userID")int userID,
-						 Model model) {
+			     @PathVariable("id")int id,
+			     @PathVariable("userID")int userID,Model model){
+						
 		String human;
-		
-		
 		if(type.equals("S_Task")) {
 			
 			selectTaskDTO sto = tdao.detailTask(id);
@@ -435,9 +389,7 @@ public class TaskController {
 			human = dto.getEmp_name();
 			
 			model.addAttribute("human",human);
-			
 			model.addAttribute("sto",sto);
-			
 			model.addAttribute("type",type);
 			
 		}else if(type.equals("R_Task")) {
@@ -449,9 +401,7 @@ public class TaskController {
 			human = dto.getEmp_name();
 			
 			model.addAttribute("human",human);
-			
 			model.addAttribute("sto",sto);
-			
 			model.addAttribute("type",type);
 			
 		}else if(type.equals("S_Task_Report")) {
@@ -463,11 +413,8 @@ public class TaskController {
 			human = dto.getEmp_name();
 			
 			model.addAttribute("human",human);
-			
 			model.addAttribute("sto",sto);
-		
 			model.addAttribute("type",type);
-			
 			
 		}else if(type.equals("R_Task_Report")){
 			
@@ -477,14 +424,9 @@ public class TaskController {
 			human = dto.getEmp_name();
 			
 			model.addAttribute("human",human);
-			
 			model.addAttribute("sto",sto);
-			
 			model.addAttribute("type",type);
-		}else{
-			
 		}
-		
 		return "task/task_detail";
 	} 	
 	
