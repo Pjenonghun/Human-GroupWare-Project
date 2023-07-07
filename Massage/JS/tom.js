@@ -13,9 +13,6 @@ $(document)
 			type:"post",
 			dataType:"text",
 			data:{noteNum : noteNum},
-			beforeSend:function(){
-				console.log("복구할 번호 "+noteNum)
-			},
 			success:function(){
 				document.location="/send"
 			},
@@ -31,9 +28,6 @@ $(document)
 			type:"post",
 			dataType:"text",
 			data:{noteNum : noteNum},
-			beforeSend:function(){
-				console.log(noteNum)
-			},
 			success:function(){
 				document.location="/receive"
 			},
@@ -49,9 +43,6 @@ $(document)
 			type:"post",
 			dataType:"text",
 			data:{noteNum : noteNum},
-			beforeSend:()=>{
-				console.log("삭제될 메시지 번호: "+noteNum)
-			},
 			success:()=>{
 				document.location="/tom"
 			}
@@ -59,7 +50,6 @@ $(document)
 })
 .on("click","#re_hardDelete",function(){
 	let noteNum="";
-	console.log($("input[type=checkbox]:checked").length)
 	for(let i=0; i<$("input[type=checkbox]:checked").length; i++){
 			noteNum+=($("input[name=juniorCheckBox2]:checked:eq("+i+")").val())+","
 	}
@@ -68,9 +58,6 @@ $(document)
 			type:"post",
 			dataType:"text",
 			data:{noteNum : noteNum},
-			beforeSend:()=>{
-				console.log("삭제될 메시지 번호: "+noteNum)
-			},
 			success:()=>{
 				document.location="/tom"
 			}
@@ -177,7 +164,6 @@ function SendFirstPage(firstPage, amount) {
 
 function SendCurrentPage(page, amount) {
 	let pageNum = $(page).text();
-	console.log("pageNum : "+pageNum)
 	getSeDel(pageNum, amount);
 	if (pageNum < 1) {
 		$("#SePrivButton").addClass("disabled");
@@ -228,15 +214,14 @@ function SendDivSet(pageNum, amount, totalPage) {
 	let pagediv="";
 	if(totalPage!=0){
 		 pagediv = "<li id='SePrivButton' class='page-item disabled' onclick='SendFirstPage(" + firstPage + "," + amount + ")'><a class='page-link' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
-	for (let i = firstPage; i <= lastPage; i++) {
-		if (pageNum == i) {
-			pagediv += "<li id='SePage-id" + i + "' class='page-item active' onclick='SendCurrentPage(this,"+amount+")'><a class='page-link' href='#'>" + i + "</a></li>";
-		} else {
-			pagediv += "<li id='SePage-id" + i + "' class='page-item' onclick='SendCurrentPage(this," + amount + ")'><a class='page-link' href='#'>" + i + "</a></li>";
+		for (let i = firstPage; i <= lastPage; i++) {
+			if (pageNum == i) {
+				pagediv += "<li id='SePage-id" + i + "' class='page-item active' onclick='SendCurrentPage(this,"+amount+")'><a class='page-link' href='#'>" + i + "</a></li>";
+			} else {
+				pagediv += "<li id='SePage-id" + i + "' class='page-item' onclick='SendCurrentPage(this," + amount + ")'><a class='page-link' href='#'>" + i + "</a></li>";
 		}
 	}
 	pagediv += "<li id='SeNextButton' class='page-item' onclick='SendFinalPage(" + totalPage + "," + amount + "," + pageNum + ")'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
-	
 	}
 	$("#SendPageBox").empty().append(pagediv);
 	$("#SePage-id" + pageNum).addClass("active");
