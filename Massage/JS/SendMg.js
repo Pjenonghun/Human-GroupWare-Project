@@ -18,9 +18,7 @@ $(document)
 	let receiverID = $(this).parent("tr").find("input[id=receiverId]").val()
 
 	let noteNumber = $(this).parent("tr").find("input[type=checkbox]").val()
-	
-	console.log(senderID + receiverID + noteNumber);
-		
+			
  	document.location = "/detailMg/"+senderID+"/"+receiverID+"/"+noteNumber+"/"+2 
 })
 
@@ -69,12 +67,12 @@ function makePageButton(pageNum,totalPage,amount){
   		let	pageButton=""
   		if(totalPage!=0){
 			pageButton+="<li id='privButton' class='page-item disabled' onclick=privPageButton("+amount+")><a class='page-link' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>"
-  			 for (let i=startNum; i<=endNum; i++) {  				
-  	    		if (i===pageNum) {  	    			
-  	    			pageButton+="<li id='page-id" +i+"' class='page-item active' onclick='currentPage(this,"+amount+")'><a class='page-link'href='#'>"+i+"</a></li>"
+  			for (let i=startNum; i<=endNum; i++) {  				
+  	    			if (i===pageNum) {  	    			
+  	    				pageButton+="<li id='page-id" +i+"' class='page-item active' onclick='currentPage(this,"+amount+")'><a class='page-link'href='#'>"+i+"</a></li>"
   	   		 	} else {
-  	     		 	pageButton+="<li id='page-id"+i+"' class='page-item' onclick='currentPage(this,"+amount+")'><a class='page-link' href='#'>"+i+"</a></li>";  	        		
-  	    		}
+  	     		 		pageButton+="<li id='page-id"+i+"' class='page-item' onclick='currentPage(this,"+amount+")'><a class='page-link' href='#'>"+i+"</a></li>";  	        		
+  	    			}
   	  		}
   			pageButton +="<li id='nextButton' class='page-item' onclick=lastPageButton("+totalPage+","+amount+")><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>"  
 		  }
@@ -94,9 +92,7 @@ function selectSendMessage(pageNum,amount){
 				  pageNum:pageNum,
 				  amount:amount},
 			success:(list)=>{
-				
 				$("#sendMessageList tr:gt(0)").remove()
-				
 				$("#pageButtonBox").empty()
 				let totalPage=0
 				for(let i=0; i<list.length; i++){
@@ -111,10 +107,7 @@ function selectSendMessage(pageNum,amount){
 					$("#sendMessageList").append(tb)
 					totalPage = list[0]["totalPage"]
 				}
-				
-	
 				$("#sendMessageList tr td:nth-child(4) div").addClass("overflow");
-				
 				makePageButton(pageNum,totalPage,amount)
 			}
 	})
