@@ -10,11 +10,9 @@ $(document)
 })
 .on("click","#receiveMessageList tr:gt(0) td:nth-child(4)",function(){
 	
-	
 	let senderId = $(this).parent("tr").find("input[id=senderId]").val()
 	let receiverId = $("#userId").val();
 	let noteNumber = $(this).parent("tr").find("input[name=juniorCheckBox]").val()
-	console.log("보낸이 : "+senderId+"받는이 : "+receiverId+"노트 번호: "+noteNumber)
 	
 	$.ajax({url:"/updateRead",
 			type:"post",
@@ -25,8 +23,6 @@ $(document)
 	$(this).css("color","blue")
  	document.location = "/detailMg/"+senderId+"/"+receiverId+"/"+noteNumber+"/"+1
 })
-
-//-------------------------------------------함수------------------------------------------------//
 
 function endPage(totalpage,amount){
 	selectReceiveMessage(totalpage,amount)
@@ -49,7 +45,6 @@ function selectAll(selectAll){
 }
 function deleteReceiveMessage(){
 	let noteNumber="";
-	console.log($("input[name='juniorCheckBox']:checked").length)
 	for(let i=0; i<$("input[name='juniorCheckBox']:checked").length; i++){
 		noteNumber += $("input[name='juniorCheckBox']:checked:eq("+i+")").val()+","
 	}	
