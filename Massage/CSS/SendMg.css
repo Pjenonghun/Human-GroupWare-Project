@@ -1,0 +1,31 @@
+@charset "UTF-8";
+.liSelect{position: absolute; right:0; margin-right:80px;}
+.totalMessage{position: absolute; right:0;}
+.flexContainer{display:flex;}
+.nav-link{color:blue;}
+.nav-link:hover {color:lightblue;}
+.overflow {
+	width:100px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.pagination{position: absolute; left: 40%; margin-left:10px;}
+.pagination div{display:inline-block;}
+.pagination{text-align:center;}
+
+.table tr:nth-child(1) button{position:relative; bottom:7px; font-weight:bold;} 
+.table tr:nth-child(1) input{position:relative; left:40px;}
+.table tr:nth-child(1) td{font-weight:bold;}
+.table tr input{position:relative; left:40px;}
+.table tr td:nth-child(2){width:85px}
+.tableBox{position:relative; width:100%;}
+.hidden_td{border: none;}
+.table tr td:nth-child(4) :hover{color:lightblue; cursor:pointer;}
+.table{
+	width:90%;
+	position:relative;
+	margin-top:20px;
+	margin-left:20px;
+}
+#deleteMgButton:hover{color:green;}

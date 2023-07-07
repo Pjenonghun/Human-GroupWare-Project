@@ -1,0 +1,28 @@
+@charset "UTF-8";
+.totalMessage{position: absolute; right:0; }
+.selectBox{position: absolute; right:0; margin-right:80px;}
+.flexContainer{display:flex;flex-wrap: nowrap;}
+.nav-link{color:blue;}
+.nav-link:hover {color:lightblue;}
+.pagination{position: absolute; left: 40%; margin-left:40px;}
+.pagination div{display:inline-block;}
+.overflow {
+	width:100px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.table tr td:nth-child(2){width:85px}
+.tableBox{position:relative;}
+.table{margin-top: 10px;margin-left: 20px;}
+.table tr:nth-child(1) button{position:relative; bottom:7px; font-weight:bold;}
+.table tr:nth-child(1) input{position:relative; left:40px;}
+.table tr:nth-child(1) td{font-weight:bold;}
+.table tr input{position:relative; left:40px;}
+.table tr td:nth-child(4) :hover{color:lightblue; cursor:pointer;}
+.tableBox{
+	width:100%;
+}
+
+#deleteMessage:hover{color:green;}
